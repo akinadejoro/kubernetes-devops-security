@@ -44,11 +44,6 @@ pipeline {
              }
          }
       }
-    //   stage('Vulnerabilty Scan - Docker') {
-    //         steps {
-    //           sh "mvn dependency-check:check"
-    //         }
-    //  }
 
      stage('Vulnerability Scan - Docker ') {
       steps {
@@ -75,12 +70,6 @@ pipeline {
         }
     }
 
-    // stage('Vulnerability Scan - Kubernetes') {
-    //   steps {
-    //     sh 'docker run --rm -v $(pwd):/project openpolicyagent/conftest test --policy opa-k8s-security.rego k8s_deployment_service.yaml'
-    //   }
-    // }
-
     stage('Vulnerability Scan - Kubernetes') {
       steps {
         parallel(
@@ -90,9 +79,9 @@ pipeline {
           "Kubesec Scan": {
             sh "bash kubesec-scan.sh"
           }
-          // "Trivy Scan": {
-          //   sh "bash trivy-k8s-scan.sh"
-          // }
+          "Trivy Scan": {
+            sh "bash trivy-k8s-scan.sh"
+          }
         )
       }
     }
