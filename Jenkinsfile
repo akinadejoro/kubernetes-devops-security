@@ -72,19 +72,21 @@ pipeline {
 
     stage('Vulnerability Scan - Kubernetes') {
       steps {
-        parallel(
-          "OPA Scan": {
-            sh 'docker run --rm -v $(pwd):/project openpolicyagent/conftest test --policy opa-k8s-security.rego k8s_deployment_service.yaml'
-          },
-          "Kubesec Scan": {
-            sh "bash kubesec-scan.sh"
-          },
-          "Trivy Scan": {
-            // sh "bash trivy-k8s-scan.sh"
-              sh 'sudo docker run --rm -v /tmp/.cache:/root/.cache/ aquasec/trivy:0.17.2 -q image --exit-code 0 --severity LOW,MEDIUM,HIGH --light $imageName'
-              sh 'sudo docker run --rm -v /tmp/.cache:/root/.cache/ aquasec/trivy:0.17.2 -q image --exit-code 1 --severity CRITICAL --light $imageName'
-          }
-        )
+          withDockerRegistry([credentialsId: "docker-hub", url: ""]) {
+          parallel(
+            "OPA Scan": {
+              sh 'docker run --rm -v $(pwd):/project openpolicyagent/conftest test --policy opa-k8s-security.rego k8s_deployment_service.yaml'
+            },
+            "Kubesec Scan": {
+              sh "bash kubesec-scan.sh"
+            },
+            "Trivy Scan": {
+              sh "bash trivy-k8s-scan.sh"
+              // sh 'docker run --rm -v /tmp/.cache:/root/.cache/ aquasec/trivy:0.17.2 -q image --exit-code 0 --severity LOW,MEDIUM,HIGH --light $imageName'
+              // sh 'docker run --rm -v /tmp/.cache:/root/.cache/ aquasec/trivy:0.17.2 -q image --exit-code 1 --severity CRITICAL --light $imageName'
+            }
+          )
+        }
       }
     }
 
