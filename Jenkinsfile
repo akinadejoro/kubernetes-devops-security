@@ -8,6 +8,7 @@ pipeline {
     imageName = "akinadejoro/numeric-app:${GIT_COMMIT}"
     applicationURL="http://my-devsecops-demo.eastus.cloudapp.azure.com"
     applicationURI="/increment/99"
+    USER_CREDENTIALS = credentials('docker-hub')
   }
 
   stages {
@@ -80,11 +81,9 @@ pipeline {
               sh "bash kubesec-scan.sh"
             },
             "Trivy Scan": {
-              withDockerRegistry([credentialsId: "docker-hub", url: ""]) {
                 sh "bash trivy-k8s-scan.sh"
                 // sh 'docker run --rm -v /tmp/.cache:/root/.cache/ aquasec/trivy:0.17.2 -q image --exit-code 0 --severity LOW,MEDIUM,HIGH --light $imageName'
                 // sh 'docker run --rm -v /tmp/.cache:/root/.cache/ aquasec/trivy:0.17.2 -q image --exit-code 1 --severity CRITICAL --light $imageName'
-            }
           }
         )
       }
