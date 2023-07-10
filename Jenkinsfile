@@ -91,7 +91,7 @@ pipeline {
             },
             "Trivy Scan": { 
                sh 'docker login -u "$USER_CREDENTIALS_USR" -p "$USER_CREDENTIALS_PSW" docker.io'
-               sh 'export CONTAINERD_ADDRESS=/var/run/docker.sock'
+               sh 'export CONTAINERD_ADDRESS=/run/containerd/containerd.sock'
                sh 'sudo docker run --rm -v $WORKSPACE:/root/.cache/ aquasec/trivy -q image --exit-code 0 --severity LOW,MEDIUM,HIGH --light $imageName'
                sh 'sudo docker run --rm -v $WORKSPACE:/root/.cache/ aquasec/trivy -q image --exit-code 0 --severity CRITICAL --light $imageName'
                 // sh "bash trivy-k8s-scan.sh"
