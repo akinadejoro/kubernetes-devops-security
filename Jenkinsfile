@@ -8,7 +8,7 @@ pipeline {
     imageName = "akinadejoro/numeric-app:${GIT_COMMIT}"
     applicationURL="http://my-devsecops-demo.eastus.cloudapp.azure.com"
     applicationURI="/increment/99"
-    USER_CREDENTIALS = credentials('docker-hub')
+    // USER_CREDENTIALS = credentials('docker-hub')
   }
 
   stages {
