@@ -71,6 +71,15 @@ pipeline {
         }
     }
 
+    stage('Docker Build and Push') {
+          steps {
+              sh 'docker login -u '$USER_CREDENTIALS_USR' -p '$USER_CREDENTIALS_PSW' docker.io'
+              sh "printenv"
+              sh 'docker build -t akinadejoro/numeric-app:""$GIT_COMMIT"" .'
+              sh 'docker push akinadejoro/numeric-app:""$GIT_COMMIT""'
+        }
+    }
+
     stage('Vulnerability Scan - Kubernetes') {
       steps {
           parallel(
