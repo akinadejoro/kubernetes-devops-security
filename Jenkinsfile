@@ -61,15 +61,15 @@ pipeline {
          )
        }
      }
-    stage('Docker Build and Push') {
-          steps {
-            withDockerRegistry([credentialsId: 'docker-hub', url: ""]) {
-              sh "printenv"
-              sh 'sudo docker build -t akinadejoro/numeric-app:""$GIT_COMMIT"" .'
-              sh 'sudo docker push akinadejoro/numeric-app:""$GIT_COMMIT""'
-          }
-        }
-    }
+    // stage('Docker Build and Push') {
+    //       steps {
+    //         withDockerRegistry([credentialsId: 'docker-hub', url: ""]) {
+    //           sh "printenv"
+    //           sh 'sudo docker build -t akinadejoro/numeric-app:""$GIT_COMMIT"" .'
+    //           sh 'sudo docker push akinadejoro/numeric-app:""$GIT_COMMIT""'
+    //       }
+    //     }
+    // }
 
     stage('Docker Build and Push') {
           steps {
