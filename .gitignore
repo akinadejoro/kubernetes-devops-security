@@ -27,4 +27,3 @@ bin
 .project
 target
 .talismanrc
-.dockerignore
