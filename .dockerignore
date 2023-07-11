@@ -1,0 +1,10 @@
+# By default, ignore everything
+# *
+# Ignore folers
+**/trivy/**
+# Add exception for the directories you actually want to include in the context
+!src
+!target
+# source files
+!*.py
+!*.sh
