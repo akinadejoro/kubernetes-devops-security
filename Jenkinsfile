@@ -90,7 +90,7 @@ pipeline {
               sh "bash kubesec-scan.sh"
             },
             "Trivy Scan": { 
-              //  sh 'docker login -u "$USER_CREDENTIALS_USR" -p "$USER_CREDENTIALS_PSW" docker.io'
+               sh 'docker login -u "$USER_CREDENTIALS_USR" -p "$USER_CREDENTIALS_PSW" docker.io'
               //  sh 'export CONTAINERD_ADDRESS=/run/containerd/containerd.sock'
                sh 'docker run --rm -v $WORKSPACE:/root/.cache/ aquasec/trivy -q image --docker-host tcp://127.0.0.1:2375 --exit-code 0 --severity LOW,MEDIUM,HIGH --light $imageName'
                sh 'docker run --rm -v $WORKSPACE:/root/.cache/ aquasec/trivy -q image --docker-host tcp://127.0.0.1:2375 --exit-code 0 --severity CRITICAL --light $imageName'
