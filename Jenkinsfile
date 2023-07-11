@@ -5,8 +5,8 @@ pipeline {
     deploymentName = "devsecops"
     containerName = "devsecops-container"
     serviceName = "devsecops-svc"
-    // imageName = "akinadejoro/numeric-app:${GIT_COMMIT}"
-    imageName = "akinadejoro/demo-app:java-app"
+    imageName = "akinadejoro/numeric-app:${GIT_COMMIT}"
+    // imageName = "akinadejoro/demo-app:java-app"
     applicationURL="http://my-devsecops-demo.eastus.cloudapp.azure.com"
     applicationURI="/increment/99"
     USER_CREDENTIALS = credentials('docker-hub')
@@ -91,7 +91,9 @@ pipeline {
               sh "bash kubesec-scan.sh"
             },
             "Trivy Scan": { 
-              sh "bash trivy-k8s-scan.sh"
+              withDockerRegistry([credentialsId: 'docker-hub', url: ""]) {
+                sh "bash trivy-k8s-scan.sh"
+              }
           }
         )
       }
