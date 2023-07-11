@@ -1,9 +1,12 @@
 #!/bin/bash
-#trivy-k8s-scan
+
+# trivy-k8s-scan
 
 echo $imageName #getting Image name from env variable
 
-pwd
+wk_dir=`pwd`
+
+echo $wk_dir
 
 
 
