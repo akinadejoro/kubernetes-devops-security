@@ -75,8 +75,8 @@ pipeline {
           steps {
               sh 'docker login -u "$USER_CREDENTIALS_USR" -p "$USER_CREDENTIALS_PSW" docker.io'
               sh "printenv"
-              sh 'sudo docker build -t akinadejoro/numeric-app:""$GIT_COMMIT"" .'
-              sh 'sudo docker push akinadejoro/numeric-app:""$GIT_COMMIT""'
+              sh 'docker build -t akinadejoro/numeric-app:""$GIT_COMMIT"" .'
+              sh 'docker push akinadejoro/numeric-app:""$GIT_COMMIT""'
         }
     }
 
