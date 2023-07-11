@@ -3,9 +3,9 @@
 
 echo $imageName #getting Image name from env variable
 
-wkdir = `pwd`
+pwd
 
-echo $wkdir
+
 
 # git clone $imageName
 
