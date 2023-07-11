@@ -92,8 +92,8 @@ pipeline {
             "Trivy Scan": { 
               //  sh 'docker login -u "$USER_CREDENTIALS_USR" -p "$USER_CREDENTIALS_PSW" docker.io'
               //  sh 'export CONTAINERD_ADDRESS=/run/containerd/containerd.sock'
-               sh 'docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy TRIVY_USERNAME=$USER_CREDENTIALS_USR TRIVY_PASSWORD=$USER_CREDENTIALS_PSW image -q --severity LOW,MEDIUM,HIGH --light $imageName'
-               sh 'docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy TRIVY_USERNAME=$USER_CREDENTIALS_USR TRIVY_PASSWORD=$USER_CREDENTIALS_PSW image -q --severity CRITICAL --light $imageName'
+               sh 'docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy::0.17.2 TRIVY_USERNAME=$USER_CREDENTIALS_USR TRIVY_PASSWORD=$USER_CREDENTIALS_PSW -q image --severity LOW,MEDIUM,HIGH --light $imageName'
+               sh 'docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy:0.17.2 TRIVY_USERNAME=$USER_CREDENTIALS_USR TRIVY_PASSWORD=$USER_CREDENTIALS_PSW -q image --severity CRITICAL --light $imageName'
               //  sh 'sudo TRIVY_USERNAME=$USER_CREDENTIALS_USR TRIVY_PASSWORD=$USER_CREDENTIALS_PSW docker run --rm -v $WORKSPACE:/root/.cache/ aquasec/trivy -q image --exit-code 0 --severity LOW,MEDIUM,HIGH --light $imageName'
               //  sh 'sudo TRIVY_USERNAME=$USER_CREDENTIALS_USR TRIVY_PASSWORD=$USER_CREDENTIALS_PSW docker run --rm -v $WORKSPACE:/root/.cache/ aquasec/trivy -q image --exit-code 0 --severity CRITICAL --light $imageName'
                 // sh "bash trivy-k8s-scan.sh"
