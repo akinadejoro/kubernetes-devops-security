@@ -5,7 +5,8 @@ pipeline {
     deploymentName = "devsecops"
     containerName = "devsecops-container"
     serviceName = "devsecops-svc"
-    imageName = "akinadejoro/numeric-app:${GIT_COMMIT}"
+    // imageName = "akinadejoro/numeric-app:${GIT_COMMIT}"
+    imageName = "akinadejoro/demo-app:java-app"
     applicationURL="http://my-devsecops-demo.eastus.cloudapp.azure.com"
     applicationURI="/increment/99"
     USER_CREDENTIALS = credentials('docker-hub')
@@ -90,15 +91,7 @@ pipeline {
               sh "bash kubesec-scan.sh"
             },
             "Trivy Scan": { 
-              //  sh 'docker login -u "$USER_CREDENTIALS_USR" -p "$USER_CREDENTIALS_PSW" docker.io'
-              //  sh 'export CONTAINERD_ADDRESS=/run/containerd/containerd.sock'
-               sh 'docker run --rm -v /var/run/docker.sock aquasec/trivy:0.17.2 TRIVY_USERNAME=$USER_CREDENTIALS_USR TRIVY_PASSWORD=$USER_CREDENTIALS_PSW image $imageName'
-               sh 'docker run --rm -v /var/run/docker.sock aquasec/trivy:0.17.2 TRIVY_USERNAME=$USER_CREDENTIALS_USR TRIVY_PASSWORD=$USER_CREDENTIALS_PSW image $imageName'
-              //  sh 'sudo TRIVY_USERNAME=$USER_CREDENTIALS_USR TRIVY_PASSWORD=$USER_CREDENTIALS_PSW docker run --rm -v $WORKSPACE:/root/.cache/ aquasec/trivy -q image --exit-code 0 --severity LOW,MEDIUM,HIGH --light $imageName'
-              //  sh 'sudo TRIVY_USERNAME=$USER_CREDENTIALS_USR TRIVY_PASSWORD=$USER_CREDENTIALS_PSW docker run --rm -v $WORKSPACE:/root/.cache/ aquasec/trivy -q image --exit-code 0 --severity CRITICAL --light $imageName'
-                // sh "bash trivy-k8s-scan.sh"
-                // sh 'docker run --rm -v /tmp/.cache:/root/.cache/ aquasec/trivy:0.17.2 -q image --exit-code 0 --severity LOW,MEDIUM,HIGH --light $imageName'
-                // sh 'docker run --rm -v /tmp/.cache:/root/.cache/ aquasec/trivy:0.17.2 -q image --exit-code 1 --severity CRITICAL --light $imageName'
+              sh "bash trivy-k8s-scan.sh"
           }
         )
       }
