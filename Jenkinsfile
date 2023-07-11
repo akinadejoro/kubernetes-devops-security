@@ -62,24 +62,24 @@ pipeline {
          )
        }
      }
-    // stage('Docker Build and Push') {
-    //       steps {
-    //         withDockerRegistry([credentialsId: 'docker-hub', url: ""]) {
-    //           sh "printenv"
-    //           sh 'sudo docker build -t akinadejoro/numeric-app:""$GIT_COMMIT"" .'
-    //           sh 'sudo docker push akinadejoro/numeric-app:""$GIT_COMMIT""'
-    //       }
-    //     }
-    // }
-
     stage('Docker Build and Push') {
           steps {
-              sh 'docker login -u "$USER_CREDENTIALS_USR" -p "$USER_CREDENTIALS_PSW" docker.io'
+            withDockerRegistry([credentialsId: 'docker-hub', url: ""]) {
               sh "printenv"
               sh 'docker build -t akinadejoro/numeric-app:""$GIT_COMMIT"" .'
               sh 'docker push akinadejoro/numeric-app:""$GIT_COMMIT""'
+          }
         }
     }
+
+    // stage('Docker Build and Push') {
+    //       steps {
+    //           sh 'docker login -u "$USER_CREDENTIALS_USR" -p "$USER_CREDENTIALS_PSW" docker.io'
+    //           sh "printenv"
+    //           sh 'docker build -t akinadejoro/numeric-app:""$GIT_COMMIT"" .'
+    //           sh 'docker push akinadejoro/numeric-app:""$GIT_COMMIT""'
+    //     }
+    // }
 
     stage('Vulnerability Scan - Kubernetes') {
       steps {

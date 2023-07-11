@@ -3,6 +3,12 @@
 
 echo $imageName #getting Image name from env variable
 
+wkdir = `pwd`
+
+echo $wkdir
+
+# git clone $imageName
+
 # export $USER_CREDENTIALS_USR
 # export $USER_CREDENTIALS_PSW
 
