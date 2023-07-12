@@ -30,4 +30,4 @@ echo "Exit Code : $exit_code"
 
 
 # Generate ConfigFile
-# docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-weekly zap-api-scan.py -t http://my-devsecops-demo.eastus.cloudapp.azure.com:32627/v3/api-docs -f openapi -g gen_file
+# docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-weekly zap-api-scan.py -t $applicationURL:$PORT/v3/api-docs -f openapi -g gen_file
