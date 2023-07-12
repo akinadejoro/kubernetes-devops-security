@@ -3,5 +3,7 @@
 # Active scan rules set to IGNORE will not be run which will speed up the scan
 # Only the rule identifiers are used - the names are just for info
 # You can add your own messages to each rule by appending them after a tab on each line.
-100000  IGNORE  http://my-devsecops-demo.eastus.cloudapp.azure.com:30444/
-100001  IGNORE  http://my-devsecops-demo.eastus.cloudapp.azure.com:30444/
+# 100000  IGNORE  http://my-devsecops-demo.eastus.cloudapp.azure.com:30444/
+# 100001  IGNORE  http://my-devsecops-demo.eastus.cloudapp.azure.com:30444/
+100001  IGNORE  (Unexpected Content-Type was returned)
+100000  IGNORE  (A Server Error response code was returned by the server)
