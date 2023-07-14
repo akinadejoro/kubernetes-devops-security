@@ -2,7 +2,7 @@
 #cis-master.sh
 
 
-chmod 777 /var/lib/etcd/default.etcd
+sudo chmod 777 /var/lib/etcd/default.etcd
 echo $(id -u):$(id -g)
 
 total_fail=$(kube-bench run --targets master --version 1.20 --check 1.2.7,1.2.8,1.2.9 --json | jq .Totals.total_fail)
