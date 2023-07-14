@@ -5,7 +5,8 @@
 # echo $(id -u):$(id -g)
 
 # total_fail=$(kube-bench run --targets etcd --version 1.20 --check 2.2 --json | jq .Totals.total_fail)
-kube-bench run --targets etcd --version 1.20 --check 2.2 --json | jq .Totals.total_pass
+total_fail=`kube-bench run --targets etcd --version 1.20 --check 2.2 --json | jq .Totals.total_pass`
+echo $total_fail
 
 if [[ "$total_fail" -ne 0 ]];
         then
