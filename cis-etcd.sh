@@ -1,6 +1,9 @@
 #!/bin/bash
 #cis-etcd.sh
 
+chmod 777 /var/lib/etcd/default.etcd
+echo $(id -u):$(id -g)
+
 total_fail=$(kube-bench run --targets etcd --version 1.20 --check 2.2 --json | jq .Totals.total_fail)
 
 if [[ "$total_fail" -ne 0 ]];
