@@ -1,7 +1,7 @@
 #!/bin/bash
 #cis-kubelet.sh
 
-sudo chmod 777 /var/lib/etcd/default.etcd
+sudo chmod 777 /var/lib/etcd/
 echo $(id -u):$(id -g)
 
 total_fail=$(kube-bench run --targets node  --version 1.20 --check 4.2.1,4.2.2 --json | jq .Totals.total_fail)
