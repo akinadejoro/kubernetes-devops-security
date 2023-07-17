@@ -243,7 +243,7 @@ pipeline {
   //         sh 'exit 1'
   //     }
   //   }
-  // }
+  }
   post {
   //         always {
   //           junit 'target/surefire-reports/*.xml'
