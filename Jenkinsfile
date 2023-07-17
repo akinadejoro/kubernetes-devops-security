@@ -238,12 +238,12 @@ pipeline {
           sh "exit 0"
         }
     }
-    stage('Testing Slack - Error Stage') {
-      steps {
-          sh 'exit 1'
-      }
-    }
-  }
+  //   stage('Testing Slack - Error Stage') {
+  //     steps {
+  //         sh 'exit 1'
+  //     }
+  //   }
+  // }
   post {
   //         always {
   //           junit 'target/surefire-reports/*.xml'
@@ -268,11 +268,11 @@ pipeline {
 
           failure {
             script {
-			   //Fetch information about  failed stage
-		     def failedStages = getFailedStages( currentBuild )
-	       env.failedStage = failedStages.failedStageName
-	       env.emoji = ":x: :red_circle: :sos:"
-		     sendNotification currentBuild.result
+            //Fetch information about  failed stage
+            def failedStages = getFailedStages( currentBuild )
+            env.failedStage = failedStages.failedStageName
+            env.emoji = ":x: :red_circle: :sos:"
+            sendNotification currentBuild.result
 		      }	
 
       }
