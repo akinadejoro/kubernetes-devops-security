@@ -238,11 +238,11 @@ pipeline {
           sh "exit 0"
         }
     }
-    // stage('Testing Slack - Error Stage') {
-    //   steps {
-    //       sh 'exit 1'
-    //   }
-    // }
+    stage('Testing Slack - Error Stage') {
+      steps {
+          sh 'exit 1'
+      }
+    }
   }
   post {
   //         always {
