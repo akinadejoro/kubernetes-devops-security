@@ -1,0 +1,44 @@
+{
+    "groups": [
+      {
+        "name": "Rules",
+        "rules": [
+          {
+            "alert": "InstanceDown",
+            "expr": "up == 0",
+            "for": "0m",
+            "labels": {
+              "severity": "critical"
+            },
+            "annotations": {
+              "summary": "Instance {{ $labels.instance }} down",
+              "description": "{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 1 minute."
+            }
+          },
+          {
+            "alert": "KubernetesPodClientError",
+            "expr": "istio_requests_total{reporter=\"destination\", response_code=\"403\"} > 10",
+            "labels": {
+              "severity": "warning"
+            },
+            "annotations": {
+              "summary": "Kubernetes pod Client Error (instace {{ $labels.instance }})",
+              "description": "Pod {{ $labels.instance }} of job {{ $labels.job }} reported client specific issues"
+            }
+          },
+          {
+            "alert": "IstioHigh403ErrorRate",
+            "expr": "sum(rate(istio_requests_total{reporter=\"destination\", response_code==\"403\"}[5m])) / sum(rate(istio_requests_total{reporter=\"destination\"}[5m])) * 100 > 5",
+            "for": "1m",
+            "labels": {
+              "severity": "warning"
+            },
+            "annotations": {
+              "summary": "Istio high 403 error rate (instance {{ $labels.instance }})",
+              "description": "High percentage of HTTP 5xx responses in Istio (> 5%).\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+            }
+          }
+        ]
+      }
+    ]
+}
